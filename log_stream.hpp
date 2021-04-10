@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <sstream>
+#include <thread>
 
 
 namespace logs {
@@ -25,14 +26,25 @@ public:
     }
 
     ~LogStream() {
-        std::cerr << m_stream.str() << std::endl;
+        std::cerr << std::this_thread::get_id() << " | " << m_stream.str() << std::endl;
     }
 
 private:
     std::stringstream m_stream;
 };
 
+struct DummyStream {
+    template<typename T>
+    DummyStream& operator<< (const T&) {
+        return *this;
+    }
+};
+
 }
 }
 
+#ifdef DEBUG
 #define log (logs::detail::LogStream(__FILE__, MACRO_STR(__LINE__)))
+#else
+#define log logs::detail::DummyStream()
+#endif // DEBUG
