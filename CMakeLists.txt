@@ -8,8 +8,8 @@ if (MSVC)
 endif(MSVC)
 
 
-set(SRCS main.cpp "application.cpp" "main_window.cpp")
-set(HEADERS application.hpp "forward_definitions.hpp" "log_stream.hpp" "main_window.hpp")
+set(SRCS main.cpp "application.cpp" "main_window.cpp" "main_scene.cpp" "event_dispatcher.hpp" "event_dispatcher.cpp")
+set(HEADERS application.hpp "forward_definitions.hpp" "log_stream.hpp" "main_window.hpp" "main_scene.hpp")
 add_executable (Application  ${SRCS} ${HEADERS})
 
 target_link_libraries(Application d2d1)
