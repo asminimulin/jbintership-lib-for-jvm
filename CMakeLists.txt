@@ -1,6 +1,10 @@
-﻿cmake_minimum_required (VERSION 3.17)
+﻿cmake_minimum_required (VERSION 3.14)
 
 project ("JBIntership")
+
+if (NOT MSVC)
+    message(WARNING "This application was not tested with you compiler. You should use MSVC")
+endif(NOT MSVC)
 
 # Helpers
 if (MSVC)
@@ -17,3 +21,8 @@ target_link_libraries(Application d2d1)
 if (CMAKE_BUILD_TYPE STREQUAL "Debug")
     target_compile_definitions(Application PRIVATE "-DDEBUG")
 endif(CMAKE_BUILD_TYPE STREQUAL "Debug")
+
+if (MSVC)
+    GET_WIN32_WINNT(win32_winnt_version)
+    target_compile_definitions(Application PUBLIC "-D_WIN32_WINNT=${win32_winnt_version}")
+endif(MSVC)
